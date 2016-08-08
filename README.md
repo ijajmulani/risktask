@@ -36,12 +36,19 @@
   
 * Install MySQL-python, which is a database connector for Python:
   ```sh
-  $ pip install MySQL-python
+  $ sudo apt-get install libmysqlclient-dev
+  $ pip install mysqlclient
   ```
 * Install xlrd, The xlrd module reads a spreadsheet into a hierarchical data structure:
   ```sh
   $ pip install xlrd
   ```
+  
+* Install dateutil module for date conversion:
+  ```sh
+  $ pip install python-dateutil
+  ```
+ 
   
 * Edit your settings.py file within your  directory to add the following information about your database:
   ```
