@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Risk Task</title>  
+  </head>
+
+  <body>
+
+    <!-- List of uploaded stockData -->
+    {% if stockDatas %}
+      <ul>
+      {% for stockData in stockDatas %}
+        <li><a>{{ stockData.date }} {{ stockData.open }}</a></li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No documents.</p>
+    {% endif %}
+
+    <!-- Upload form. Note enctype attribute! -->
+    <form action="{% url "upload" %}" method="post" enctype="multipart/form-data">
+      <p>{{ form.non_field_errors }}</p>
+      <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+      <p>
+        {{ form.docfile.errors }}
+        {{ form.docfile }}
+      </p>
+      <p><input type="submit" value="Upload" /></p>
+    </form>
+    
+  </body>
+
+</html> 

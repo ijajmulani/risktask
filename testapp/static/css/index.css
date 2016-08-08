@@ -1,0 +1,46 @@
+body {
+  padding: 0 10px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+}
+.submit-btn {
+  margin-right: 28px;
+}
+.btn-wrap {
+  overflow: hidden;
+  margin: 28px 0;
+}
+.date-from, .date-to{
+  width: auto;
+}
+.show-only-wrap {
+  margin-top: 6px;
+}
+.header {
+  height: 48px;
+  margin-bottom: 11px;
+  border-bottom: 1px solid #ccc;
+  padding: 8px 13px;
+}
+input[type=file] {
+  display: inline-block;
+}
+.upload-btn, .select-btn {
+  padding: 5px 16px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.hide {
+  display: none;
+}
+.file-uploaded-text{
+  color: green;
+}
+.pagination {
+  margin: 10px 0;
+}

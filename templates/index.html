@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+  <base href="/">
+  <div ng-controller="TestAppController as controller" ng-app="testapp">
+    <div class="row header">
+      <div class="file-error">
+      {% if form.docfile.errors %}
+        {{ form.docfile.errors }}
+        {{ form.docfile }}
+      {% endif %}
+      </div>
+      <form action="{% url "upload" %}" method="post" enctype="multipart/form-data">
+        <input type="file" id="file" require name="docfile" class="file-select"/>
+
+        <button type="submit" class="btn btn-default upload-btn">Upload</button>
+      </form>
+    </div>
+
+
+    {% verbatim %}
+      <form id="filterForm" name="filterForm" class="col-md-6">
+        <div class="row">
+          <span class="col-sm-1 date-from">From : </span>
+          <div class="col-md-4">
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{controller.format}}"  is-open="controller.popup1.opened" datepicker-options="controller.dateOptions" ng-required="true" close-text="Close" ng-model="controller.filterForm.dateFrom"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="controller.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+
+          <span class="col-sm-2 date-to">To : </span>
+          <div class="col-md-4">
+            <p class="input-group">
+              <input type="text" class="form-control" 
+                is-open="controller.popup2.opened" 
+                uib-datepicker-popup="{{controller.format}}" 
+                datepicker-options="controller.dateOptions" ng-required="true" close-text="Close" ng-model="controller.filterForm.dateTo"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="controller.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="row show-only-wrap">
+          <span class="col-md-2 show-only-text">Show Only : </span>
+          <div class="col-md-6 btn-group">
+            <label class="btn btn-primary" ng-model="controller.filterForm.radio" uib-btn-radio="'profit'">Profit</label>
+            <label class="btn btn-primary" ng-model="controller.filterForm.radio" uib-btn-radio="'loss'">Loss</label>
+            <label class="btn btn-primary" ng-model="controller.filterForm.radio" uib-btn-radio="'none'">None</label>
+          </div>
+        </div>
+          <div class="btn-wrap">
+            <button  ng-click="controller.filterFormSubmit()" type="button" class="submit-btn col-md-3 btn btn-default">Submit</button>
+            <button ng-click="controller.resetFilter()" type="button" class="reset-btn col-md-3 btn btn-default">Reset</button>
+          </div>
+      </form>
+
+      <div class="col-md-6 total-record">Filter Applied : {{controller.isFilterApplied}}</div>
+      <div class="col-md-6 total-record">Total Record Found: {{controller.totalItems}}</div>
+    {% endverbatim %}
+
+    {% if fileupload %}
+      <div class="col-md-6 file-uploaded-text">File uploaded successfully</div>
+    {% endif %}
+    
+    {% verbatim %}
+      <table class="table table-striped table-condensed table-hover">
+       <thead>
+        <tr>
+          <th>
+            <a>Id</a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('date')">Date
+              <span ng-show="controller.sortType == 'date' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'date' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('open')">Open
+              <span ng-show="controller.sortType == 'open' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'open' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('high')">High
+              <span ng-show="controller.sortType == 'high' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'high' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('low')">Low
+              <span ng-show="controller.sortType == 'low' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'low' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('close')">Close
+              <span ng-show="controller.sortType == 'close' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'close' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('volume')">Volume
+              
+            </a>
+            <span ng-show="controller.sortType == 'volume' && !controller.sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="controller.sortType == 'volume' && controller.sortReverse" class="fa fa-caret-up"></span>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('adj_close')">Adj. Close
+              <span ng-show="controller.sortType == 'adjclose' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'adjclose' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+          <th>
+            <a href="#" ng-click="controller.sort('stock')">Stock
+              <span ng-show="controller.sortType == 'stock' && !controller.sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="controller.sortType == 'stock' && controller.sortReverse" class="fa fa-caret-up"></span>
+            </a>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in controller.stockLists track by $index">
+            <td>{{((controller.currentPage - 1) * controller.itemsPerPage)  + $index + 1}}</td>
+            <td>{{data.date | date:'dd/MM/yyyy @ h:mma'}}</td>
+            <td>{{data.open}}</td>
+            <td>{{data.high}}</td>
+            <td>{{data.low}}</td>
+            <td>{{data.close}}</td>
+            <td>{{data.volume}}</td>
+            <td>{{data.adj_close}}</td>
+            <td>{{data.stock}}</td>
+          </tr>
+       </tbody>
+      </table>
+
+      <ul uib-pagination total-items="controller.totalItems" ng-model="controller.currentPage" ng-change="controller.pageChanged('true')" max-size="controller.maxSize" class="pagination-sm" boundary-links="true" num-pages="controller.numPages"></ul>
+    {% endverbatim %}
+  </div>
+{% endblock content %}
+
+{% block extra_javascript %}
+  <script src="{% static "/js/main.js" %}"></script>
+{% endblock extra_javascript %}
