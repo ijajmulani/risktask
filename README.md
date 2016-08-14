@@ -24,7 +24,7 @@
   $ mkdir YourProjectName
   $ cd YourProjectName
   $ virtualenv YourProjectEnv
-  $ git clone git@github.com:ijajmulani/Djnago-file-upload-and-Analysis-of-data.git
+  $ git clone git@github.com:ijajmulani/risktask.git
   $ source YourProjectEnv/bin/activate
   $ cd risktask
   ```
